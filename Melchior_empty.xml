@@ -1,0 +1,2 @@
+<!-- generated file - preferably do not edit -->
+<melchior><monitoring/><services><service name="Ping" protocol="ICMP"/><service name="HTTP" protocol="TCP" port="80"/><service name="FTP" protocol="TCP" port="21"/><service name="SQL" protocol="TCP" port="1433"/><service name="SMTP" protocol="TCP" port="25"/><service name="NetBIOS" protocol="TCP" port="139"/><service name="Oracle" protocol="TCP" port="1521"/></services><servers><server name="Gtp 001" ip="10.0.0.141"><monitor service="NetBIOS"/><monitor service="Ping"/></server></servers></melchior>
