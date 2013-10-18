@@ -8,8 +8,7 @@ interface
 
 uses
 
-  MSXML2_TLB,
-
+  MSXML,
   Forms;
 
 const
@@ -21,7 +20,7 @@ const
   DefaultInterval = 5000;
   DefaultTimeout = 4000;
   DefaultRefreshInterval = 1000;
-  
+
   MonitoringInterval : longword = DefaultInterval;
   MonitoringTimeout : longword = DefaultTimeout;
   ListRefreshInterval : longword = 1000;

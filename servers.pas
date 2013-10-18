@@ -7,9 +7,7 @@ interface
 
 uses
 
-  MSXML2_TLB,
-
-  Classes, Winsock, Contnrs;
+  MSXML, Classes, Winsock, Contnrs;
 
 type
 
@@ -278,7 +276,7 @@ begin
   inherited Create;
   Name := AName;
   IP := AIP;
-  IPint := inet_addr(PChar(IP));
+  IPint := inet_addr(PAnsiChar(AnsiString(IP)));
   Monitors := TThreadList.Create;
 end;
 
@@ -391,16 +389,16 @@ var
   nodeList:IXMLDOMNodeList;
   node:IXMLDOMNode;
   tmp:IXMLDOMElement;
+  i:integer;
 begin
-  Name := GetAtt(elem,'name');
+  Name := elem.getAttribute('name');
   if not ValidServiceName(Name) then raise Exception.Create('Invalid service name: '+Name);
   Port := StrToIntDef(GetAtt(elem,'port'),0);
-
   nodeList := elem.selectNodes('param');
-  node := nodeList.nextNode;
-  while node <> NIL do begin
+  for i := 0 to nodeList.length - 1 do begin
+    node := nodeList[i];
     tmp := node as IXMLDOMElement;
-    Params.Values[tmp.getAttribute('name')] := tmp.text;
+    Params.Values[tmp.getAttribute('name')] := tmp.nodeValue;
   end;
 end;
 
@@ -412,13 +410,13 @@ var
 begin
   elem.setAttribute('name',Name);
   elem.setAttribute('protocol',ProtocolName);
-  if Port <> 0 then elem.setAttribute('port',Port);
+  if Port <> 0 then elem.setAttribute('port', IntToStr(Port));
 
   for n:=0 to Params.Count-1 do begin
     tmp := elem.ownerDocument.createElement('param');
     pn := Params.Names[n];
     tmp.setAttribute('name',pn);
-    tmp.text := Params.Values[pn];
+    tmp.nodeValue := Params.Values[pn];
     elem.appendChild(tmp);
   end;
 end;

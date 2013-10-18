@@ -108,7 +108,7 @@ procedure KillSocket(s:TSocket);
 
 function InternetGetConnectedState(out dwFlags:DWORD; dwReserved:DWORD):boolean;stdcall;
 
-function LookupName(name:string):integer;
+function LookupName(name:string):Cardinal;
 function IpToStr(ip:integer):string;
 
 function GetIPMacAddress(ip:DWORD):string;
@@ -161,15 +161,15 @@ function GetIpNetTable(pIpNetTable:PMIB_IPNETTABLE;pdwSize:PULONG;bOrder:boolean
 
 function IpToStr;
 begin
-  Result := StrPas(inet_ntoa(in_addr(ip)));
+  Result := string(inet_ntoa(in_addr(ip)));
 end;
 
 function LookupName;
 var
   P:PHostEnt;
-  Pc:PChar;
+  Pc:PAnsiChar;
 begin
-  Pc := PChar(name);
+  Pc := PAnsiChar(AnsiString(name));
   Result := inet_addr(Pc);
   if Result <> INADDR_NONE then exit;
 

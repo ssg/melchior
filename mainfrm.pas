@@ -198,9 +198,9 @@ implementation
 
 uses
 
-  prefs, servers, tools, svcicmp, svctcp, serverfrm, servicefrm, explorefrm, 
+  prefs, servers, tools, svcicmp, svctcp, serverfrm, servicefrm, explorefrm,
 
-  ActiveX, DateUtils, MMSystem, CommCtrl, Winsock, MSXML2_TLB;
+  UITypes,Types, ActiveX, DateUtils, MMSystem, CommCtrl, Winsock, MSXML;
 
 {$R *.dfm}
 
@@ -222,6 +222,7 @@ var
   server:TServer;
   m:TMonitor;
 begin
+  InitWinsock;
   currentServer := 0;
   currentMonitor := 0;
   while not LetGo do begin
@@ -320,7 +321,7 @@ end;
 
 procedure TMain.LoadConfiguration;
 var
-  doc:DOMDocument;
+  doc:IXMLDOMDocument;
   nodeList, subNodeList:IXMLDOMNodeList;
   node, subNode:IXMLDOMNode;
   elem:IXMLDOMElement;
@@ -750,7 +751,7 @@ procedure TMain.QuickAdd;
 var
   server:TServer;
   name,ipstr:string;
-  ip:integer;
+  ip:Cardinal;
 begin
   Screen.Cursor := crHourGlass;
   try
@@ -962,7 +963,7 @@ end;
 procedure TMain.InitTray;
 begin
   with data do begin
-    cbSize := SizeOf(data);
+    cbSize := SizeOf;
     Wnd := Handle;
     uID := 0;
   end;
