@@ -1,3 +1,5 @@
+![Melchior screenshot](https://github.com/user-attachments/assets/9d6306bc-a7b8-4aee-9e31-6a60c5e63d3e)
+
 --- here is the excerpt from original readme from 2003:
 
 Melchior 1.00 beta 6
